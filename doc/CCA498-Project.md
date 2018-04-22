@@ -213,7 +213,7 @@ plt.show()
 
 ```python
 ## Total count of articles per sport for per month for year
-sumdata_2 = df.groupby(['sport','month_name']).sum()
+sumdata_2 = df.groupby(['sport','month']).sum()
 sumdata_2_1 = pd.DataFrame(sumdata_2, columns=['count'])
 sumdata_2_1.head(12)
 
@@ -242,62 +242,76 @@ sumdata_2_1.head(12)
       <th></th>
       <th></th>
       <th>count</th>
+      <th>month_name</th>
     </tr>
     <tr>
       <th>sport</th>
-      <th>month_name</th>
+      <th>month</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th rowspan="12" valign="top">Baseball</th>
-      <th>Apr</th>
-      <td>13447</td>
-    </tr>
-    <tr>
-      <th>Aug</th>
-      <td>14646</td>
-    </tr>
-    <tr>
-      <th>Dec</th>
-      <td>9009</td>
-    </tr>
-    <tr>
-      <th>Feb</th>
-      <td>21875</td>
-    </tr>
-    <tr>
-      <th>Jan</th>
+      <th>1</th>
       <td>30716</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>Jul</th>
-      <td>19633</td>
+      <th>2</th>
+      <td>21875</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>Jun</th>
-      <td>22765</td>
-    </tr>
-    <tr>
-      <th>Mar</th>
+      <th>3</th>
       <td>23972</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>May</th>
+      <th>4</th>
+      <td>13447</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
       <td>14752</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>Nov</th>
-      <td>16617</td>
+      <th>6</th>
+      <td>22765</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>Oct</th>
-      <td>15965</td>
+      <th>7</th>
+      <td>19633</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>Sep</th>
+      <th>8</th>
+      <td>14646</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
       <td>15546</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>15965</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>16617</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>9009</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -307,22 +321,22 @@ sumdata_2_1.head(12)
 
 
 ```python
-
 # Create a Graph showing the data of all the Sports 
 data1 = sumdata_2_1.reset_index()
-xlabels = pd.Series(data1.sport)
-
+data1['month_name'] = data1['month'].apply(lambda x: calendar.month_abbr[x])
 fig, ax = plt.subplots()
 
-# create the line plot
-ax = data1.plot(kind='line',
-                    figsize=[10, 5],
-                    linewidth='3', 
-                    alpha=0.5,
-                    marker='o',
-                    color='b')
-
-ax.set_xticks(range(len(data1)))
+for key, grp in data1.groupby(['sport']):
+    ax = grp.plot(ax=ax, 
+                  kind='line', 
+                  x='month_name', 
+                  y='count', 
+                  alpha=0.6, 
+                  grid=False,
+                  figsize=[15, 12],
+                  label=key)
+    
+ax.set_xticks(range(max(data1.month)))
 ax.set_xticklabels(data1.month_name, rotation=45, rotation_mode='anchor', ha='right', fontproperties=ticks_font)
 ax.yaxis.grid(True)
 for label in ax.get_yticklabels():
@@ -331,16 +345,15 @@ for label in ax.get_yticklabels():
 ax.set_title('Number of Sport Articles in 2017', fontproperties=title_font)
 ax.set_xlabel('', fontproperties=label_font)
 ax.set_ylabel('Number of articles', fontproperties=label_font)
+    
 
+plt.legend(loc='best')
 plt.show()
+
 ```
 
 
 ![png](output_8_0.png)
-
-
-
-![png](output_8_1.png)
 
 
 

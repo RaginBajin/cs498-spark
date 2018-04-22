@@ -242,12 +242,10 @@ sumdata_2_1.head(12)
       <th></th>
       <th></th>
       <th>count</th>
-      <th>month_name</th>
     </tr>
     <tr>
       <th>sport</th>
       <th>month</th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -256,62 +254,50 @@ sumdata_2_1.head(12)
       <th rowspan="12" valign="top">Baseball</th>
       <th>1</th>
       <td>30716</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>2</th>
       <td>21875</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>3</th>
       <td>23972</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>4</th>
       <td>13447</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>5</th>
       <td>14752</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>6</th>
       <td>22765</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>7</th>
       <td>19633</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>8</th>
       <td>14646</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>9</th>
       <td>15546</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>10</th>
       <td>15965</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>11</th>
       <td>16617</td>
-      <td>NaN</td>
     </tr>
     <tr>
       <th>12</th>
       <td>9009</td>
-      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -358,7 +344,656 @@ plt.show()
 
 
 ```python
+## Total count of articles per sport for per country for year
+sumdata_3 = pd.DataFrame(df.loc[df.sport == 'Football'])
+sumdata_3_1 = sumdata_3.groupby(['month','day']).sum()
+sumdata_3_1 = sumdata_3_1.reset_index()
+sumdata_3_2 = pd.DataFrame(sumdata_3_1, columns=['count','month','day'])
+sumdata_3_2['month_name'] = sumdata_3_2['month'].apply(lambda x: calendar.month_abbr[x])
+sumdata_3_2.head(31)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>month</th>
+      <th>day</th>
+      <th>month_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2838</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3666</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3703</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3378</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2791</td>
+      <td>1</td>
+      <td>5</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2035</td>
+      <td>1</td>
+      <td>6</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1317</td>
+      <td>1</td>
+      <td>7</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1581</td>
+      <td>1</td>
+      <td>8</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>3895</td>
+      <td>1</td>
+      <td>9</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>4848</td>
+      <td>1</td>
+      <td>10</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>3233</td>
+      <td>1</td>
+      <td>11</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>4114</td>
+      <td>1</td>
+      <td>12</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>2938</td>
+      <td>1</td>
+      <td>13</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>2271</td>
+      <td>1</td>
+      <td>14</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3319</td>
+      <td>1</td>
+      <td>15</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>3604</td>
+      <td>1</td>
+      <td>16</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>3589</td>
+      <td>1</td>
+      <td>17</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>2387</td>
+      <td>1</td>
+      <td>18</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2513</td>
+      <td>1</td>
+      <td>19</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2256</td>
+      <td>1</td>
+      <td>20</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>1508</td>
+      <td>1</td>
+      <td>21</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>1906</td>
+      <td>1</td>
+      <td>22</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>2899</td>
+      <td>1</td>
+      <td>23</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>3030</td>
+      <td>1</td>
+      <td>24</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>2877</td>
+      <td>1</td>
+      <td>25</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>2415</td>
+      <td>1</td>
+      <td>26</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>3418</td>
+      <td>1</td>
+      <td>27</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>2135</td>
+      <td>1</td>
+      <td>28</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>1631</td>
+      <td>1</td>
+      <td>29</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>2586</td>
+      <td>1</td>
+      <td>30</td>
+      <td>Jan</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>3175</td>
+      <td>1</td>
+      <td>31</td>
+      <td>Jan</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+# Focus in on Football over the course of 2017 
+fig, ax = plt.subplots()
+
+for key, grp in sumdata_3_2.groupby(['month_name']):
+    ax = grp.plot(ax=ax, 
+                  kind='line', 
+                  x='month_name', 
+                  y='count', 
+                  alpha=0.6, 
+                  grid=False,
+                  figsize=[15, 12],
+                  label=key)
+    
+ax.set_xticks(range(max(sumdata_3_2.day)))
+ax.set_xticklabels(sumdata_3_2.month_name, rotation=45, rotation_mode='anchor', ha='right', fontproperties=ticks_font)
+ax.yaxis.grid(True)
+for label in ax.get_yticklabels():
+    label.set_fontproperties(ticks_font)
+
+ax.set_title('Number of Sport Articles related to Football in 2017', fontproperties=title_font)
+ax.set_xlabel('', fontproperties=label_font)
+ax.set_ylabel('Number of articles', fontproperties=label_font)
+    
+
+plt.legend(loc='best')
+plt.show()
+```
+
+
+![png](output_10_0.png)
+
+
+
+```python
 # This starts setting us up for the Geo work later. 
 coords = df.as_matrix(columns=['lat', 'long'])
 
 ```
+
+
+```python
+#df
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>count</th>
+      <th>month</th>
+    </tr>
+    <tr>
+      <th>month_name</th>
+      <th>day</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="30" valign="top">Apr</th>
+      <th>1</th>
+      <td>2735</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1939</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3620</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2709</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2588</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2394</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2721</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2450</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2793</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2239</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2878</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>3612</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>3305</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3581</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>2339</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>1918</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>2611</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2476</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2773</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>3098</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>3754</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>3258</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>3882</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>2206</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>3764</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>2850</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>2891</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>4258</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>2822</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>2439</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="30" valign="top">Sep</th>
+      <th>1</th>
+      <td>2263</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2251</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2625</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2136</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2043</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2543</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3089</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>3497</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1892</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1550</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1960</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>3314</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>3441</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3144</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>2225</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>1489</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>1640</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2767</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>2328</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>2747</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>2320</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>2850</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>4737</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>3582</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>4419</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>3667</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>3376</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>2468</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>2239</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>1834</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+<p>364 rows × 2 columns</p>
+</div>
+
+
